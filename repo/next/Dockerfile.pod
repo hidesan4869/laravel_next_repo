@@ -1,0 +1,15 @@
+FROM node:16.14.2-alpine3.15
+
+ENV TZ Asia/Tokyo
+
+WORKDIR /usr/src/app
+
+COPY ./ ./
+RUN apk update && apk add --no-cache bash git
+RUN echo "alias ll='ls -la'" >> ~/.bashrc
+RUN npm install
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]
